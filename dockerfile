@@ -2,6 +2,7 @@ FROM python:3.11
 
 WORKDIR /app
 
+
 # Copia los archivos necesarios
 COPY requirements.txt ./
 COPY app/ ./app/
