@@ -160,7 +160,7 @@ POST {{host}}/purchase
   "clientId": {{ platinum_id }},
   "amount": 250,
   "currency": "USD",
-  "purchaseDate": "2025-10-04T00:00:00Z",  # Sábado real
+  "purchaseDate": "2025-10-04T00:00:00Z",  
   "purchaseCountry": "USA"
 }
 HTTP 200
@@ -190,7 +190,7 @@ POST {{host}}/purchase
   "clientId": {{ white_id }},
   "amount": 260,
   "currency": "USD",
-  "purchaseDate": "2025-10-05T00:00:00Z",  # Domingo real
+  "purchaseDate": "2025-10-05T00:00:00Z",  
   "purchaseCountry": "USA"
 }
 HTTP 200
