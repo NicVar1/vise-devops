@@ -59,11 +59,12 @@ class PurchaseService:
     
     def _calculate_gold_benefits(self, amount: float, weekday: int) -> tuple[float, str]:
         """Calcula beneficios para tarjeta Gold"""
-        # Lunes, martes y miércoles (0, 1, 2), compras > 100 USD = 15% descuento
-        if weekday in [0, 1, 2] and amount > 100:
+    # Solo lunes (0), compras > 100 USD = 15% descuento
+        if weekday == 0 and amount > 100:
             discount = calculate_discount(amount, 15)
-            return discount, "Lunes/Martes/Miércoles - Descuento 15%"
+            return discount, "Lunes - Descuento 15%"
         return 0.0, None
+
     
     def _calculate_platinum_benefits(self, amount: float, weekday: int, is_foreign: bool) -> tuple[float, str]:
         """Calcula beneficios para tarjeta Platinum"""
