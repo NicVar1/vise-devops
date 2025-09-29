@@ -175,7 +175,7 @@ POST {{host}}/purchase
   "clientId": {{ black_id }},
   "amount": 260,
   "currency": "USD",
-  "purchaseDate": "2025-10-04T00:00:00Z",  # Sábado real
+  "purchaseDate": "2025-10-04T00:00:00Z",  
   "purchaseCountry": "USA"
 }
 HTTP/1.1 200
