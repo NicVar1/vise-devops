@@ -139,13 +139,20 @@ jsonpath "$.status" == "Rejected"
 
 # Gold: Monday purchase >100 -> 15% discount
 POST {{host}}/purchase
+<<<<<<< HEAD
 Content-Type: application/json
 
+=======
+>>>>>>> 10099b2417f681669bfa71daf64bf17b8dbf8c1e
 {
   "clientId": {{ gold_id }},
   "amount": 200,
   "currency": "USD",
+<<<<<<< HEAD
   "purchaseDate": "2025-09-29T00:00:00Z",
+=======
+  "purchaseDate": "2025-09-29",
+>>>>>>> 10099b2417f681669bfa71daf64bf17b8dbf8c1e
   "purchaseCountry": "USA"
 }
 HTTP 200
@@ -162,7 +169,11 @@ POST {{host}}/purchase
   "clientId": {{ platinum_id }},
   "amount": 250,
   "currency": "USD",
+<<<<<<< HEAD
   "purchaseDate": "2025-09-29",
+=======
+  "purchaseDate": "2025-09-27",
+>>>>>>> 10099b2417f681669bfa71daf64bf17b8dbf8c1e
   "purchaseCountry": "USA"
 }
 HTTP 200
@@ -265,13 +276,16 @@ jsonpath "$.purchase.benefit" contains "25%"
 
 # White: Sat-Sun, >200 USD, 35%
 POST {{host}}/purchase
+Content-Type: application/json
+
 {
-  "clientId": {{ white_id }},
-  "amount": 260,
+  "clientId": 2,
+  "amount": 200,
   "currency": "USD",
-  "purchaseDate": "2025-10-05",
+  "purchaseDate": "2025-09-29T00:00:00Z",
   "purchaseCountry": "USA"
 }
+
 HTTP 200
 [Asserts]
 jsonpath "$.purchase.discountApplied" == 91
