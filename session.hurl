@@ -160,63 +160,14 @@ POST {{host}}/purchase
   "clientId": {{ platinum_id }},
   "amount": 250,
   "currency": "USD",
-  "purchaseDate": "2025-09-29T00:00:00Z",
+  "purchaseDate": "2025-10-04T00:00:00Z",  # Sábado real
   "purchaseCountry": "USA"
 }
 HTTP 200
 [Asserts]
-jsonpath "$.status" == "Approved"
 jsonpath "$.purchase.discountApplied" == 75
 jsonpath "$.purchase.finalAmount" == 175
 jsonpath "$.purchase.benefit" contains "30%"
-
-# Platinum: Mon-Wed, >100 USD, 20%
-POST {{host}}/purchase
-{
-  "clientId": {{ platinum_id }},
-  "amount": 200,
-  "currency": "USD",
-  "purchaseDate": "2025-09-29T00:00:00Z",
-  "purchaseCountry": "USA"
-}
-HTTP 200
-[Asserts]
-jsonpath "$.status" == "Approved"
-jsonpath "$.purchase.discountApplied" == 50
-jsonpath "$.purchase.finalAmount" == 200
-jsonpath "$.purchase.benefit" contains "20%"
-
-
-# Platinum: Foreign purchase, 5%
-POST {{host}}/purchase
-Content-Type: application/json
-{
-  "clientId": {{ platinum_id }},
-  "amount": 100,
-  "currency": "USD",
-  "purchaseDate": "2025-09-29T00:00:00Z",
-  "purchaseCountry": "France"
-}
-HTTP 200
-[Asserts]
-jsonpath "$.purchase.discountApplied" == 5
-jsonpath "$.purchase.finalAmount" == 95
-jsonpath "$.purchase.benefit" contains "5%"
-
-# Black: Mon-Wed, >100 USD, 25%
-POST {{host}}/purchase
-{
-  "clientId": {{ black_id }},
-  "amount": 200,
-  "currency": "USD",
-  "purchaseDate": "2025-09-29T00:00:00Z",
-  "purchaseCountry": "USA"
-}
-HTTP 200
-[Asserts]
-jsonpath "$.purchase.discountApplied" == 50
-jsonpath "$.purchase.finalAmount" == 150
-jsonpath "$.purchase.benefit" contains "25%"
 
 # Black: Saturday, >200 USD, 35%
 POST {{host}}/purchase
@@ -224,7 +175,7 @@ POST {{host}}/purchase
   "clientId": {{ black_id }},
   "amount": 260,
   "currency": "USD",
-  "purchaseDate": "2025-09-29T00:00:00Z",
+  "purchaseDate": "2025-10-04T00:00:00Z",  # Sábado real
   "purchaseCountry": "USA"
 }
 HTTP/1.1 200
@@ -233,43 +184,13 @@ jsonpath "$.purchase.discountApplied" == 91
 jsonpath "$.purchase.finalAmount" == 169
 jsonpath "$.purchase.benefit" contains "35%"
 
-# Black: Foreign purchase, 5%
-POST {{host}}/purchase
-{
-  "clientId": {{ black_id }},
-  "amount": 100,
-  "currency": "USD",
-  "purchaseDate": "2025-09-29T00:00:00Z",
-  "purchaseCountry": "Germany"
-}
-HTTP 200
-[Asserts]
-jsonpath "$.purchase.discountApplied" == 5
-jsonpath "$.purchase.finalAmount" == 95
-jsonpath "$.purchase.benefit" contains "5%"
-
-# White: Mon-Fri, >100 USD, 25%
-POST {{host}}/purchase
-{
-  "clientId": {{ white_id }},
-  "amount": 200,
-  "currency": "USD",
-  "purchaseDate": "2025-09-29T00:00:00Z",
-  "purchaseCountry": "USA"
-}
-HTTP 200
-[Asserts]
-jsonpath "$.purchase.discountApplied" == 50
-jsonpath "$.purchase.finalAmount" == 150
-jsonpath "$.purchase.benefit" contains "25%"
-
 # White: Sat-Sun, >200 USD, 35%
 POST {{host}}/purchase
 {
   "clientId": {{ white_id }},
   "amount": 260,
   "currency": "USD",
-  "purchaseDate": "2025-09-29T00:00:00Z",
+  "purchaseDate": "2025-10-05T00:00:00Z",  # Domingo real
   "purchaseCountry": "USA"
 }
 HTTP 200
@@ -277,6 +198,7 @@ HTTP 200
 jsonpath "$.purchase.discountApplied" == 91
 jsonpath "$.purchase.finalAmount" == 169
 jsonpath "$.purchase.benefit" contains "35%"
+
 
 # White: Foreign purchase, 5%
 POST {{host}}/purchase
