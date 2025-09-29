@@ -139,11 +139,13 @@ jsonpath "$.status" == "Rejected"
 
 # Gold: Monday purchase >100 -> 15% discount
 POST {{host}}/purchase
+Content-Type: application/json
+
 {
   "clientId": {{ gold_id }},
   "amount": 200,
   "currency": "USD",
-  "purchaseDate": "2025-09-29",
+  "purchaseDate": "2025-09-29T00:00:00Z",
   "purchaseCountry": "USA"
 }
 HTTP 200
@@ -160,7 +162,7 @@ POST {{host}}/purchase
   "clientId": {{ platinum_id }},
   "amount": 250,
   "currency": "USD",
-  "purchaseDate": "2025-09-27",
+  "purchaseDate": "2025-09-29",
   "purchaseCountry": "USA"
 }
 HTTP 200
