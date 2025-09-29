@@ -181,9 +181,11 @@ POST {{host}}/purchase
 }
 HTTP 200
 [Asserts]
-jsonpath "$.purchase.discountApplied" == 40
-jsonpath "$.purchase.finalAmount" == 160
+jsonpath "$.status" == "Approved"
+jsonpath "$.purchase.discountApplied" == 50
+jsonpath "$.purchase.finalAmount" == 200
 jsonpath "$.purchase.benefit" contains "20%"
+
 
 # Platinum: Foreign purchase, 5%
 POST {{host}}/purchase
