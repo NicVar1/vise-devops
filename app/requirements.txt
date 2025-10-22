@@ -1,0 +1,18 @@
+fastapi==0.95.2
+pydantic==1.10.15
+uvicorn[standard]==0.24.0
+python-dateutil==2.8.2
+
+# --- OpenTelemetry Core ---
+opentelemetry-api==1.28.2
+opentelemetry-sdk==1.28.2
+opentelemetry-exporter-otlp==1.28.2
+
+# --- Instrumentación automática ---
+opentelemetry-instrumentation==0.49b2
+opentelemetry-instrumentation-fastapi==0.49b2
+opentelemetry-instrumentation-requests==0.49b2
+opentelemetry-instrumentation-urllib==0.49b2
+
+# --- Prometheus (métricas) ---
+prometheus-client==0.21.0
