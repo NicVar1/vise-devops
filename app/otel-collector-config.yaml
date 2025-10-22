@@ -1,0 +1,40 @@
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:4317
+      http:
+        endpoint: 0.0.0.0:4318
+
+exporters:
+  # Exporta métricas a Prometheus (para Grafana)
+  prometheus:
+    endpoint: "0.0.0.0:9464"
+
+  # Exporta trazas a Tempo (Grafana Tempo)
+  otlp/tempo:
+    endpoint: "http://localhost:4317"
+    tls:
+      insecure: true
+
+  # Exportador de depuración para logs
+  debug:
+    verbosity: detailed
+
+processors:
+  batch: {}
+
+service:
+  pipelines:
+    traces:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [otlp/tempo]
+    metrics:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [prometheus]
+    logs:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [debug]
