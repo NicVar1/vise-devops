@@ -8,6 +8,9 @@ services:
       - "8000:8000"
     environment:
       - OTEL_EXPORTER_OTLP_ENDPOINT=http://otel-collector:4317
+
+      - OTEL_EXPORTER_OTLP_PROTOCOL=grpc
+
       - OTEL_SERVICE_NAME=apivise
       - OTEL_METRICS_EXPORTER=otlp
       - OTEL_TRACES_EXPORTER=otlp
@@ -24,7 +27,7 @@ services:
     volumes:
       - ./otel-collector-config.yaml:/etc/otel-collector-config.yaml
     ports:
-      - "4317:4317"
+      - "4319:4317"
       - "4318:4318"
       - "9464:9464"
     networks:
@@ -48,6 +51,9 @@ services:
       - ./tempo.yaml:/etc/tempo.yaml
     ports:
       - "3200:3200"
+
+      - "4317:4317" 
+
     networks:
       - app-network
 

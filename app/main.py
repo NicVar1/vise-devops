@@ -21,7 +21,7 @@ otlp_exporter = OTLPSpanExporter(
     insecure=True
 )
 metric_exporter = OTLPMetricExporter(
-    endpoint="http://otel-collector:4318/v1/metrics",
+    endpoint="http://otel-collector:4317",
     insecure=True
 )
 
