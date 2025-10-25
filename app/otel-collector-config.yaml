@@ -12,8 +12,8 @@ exporters:
     endpoint: "0.0.0.0:9464"
 
   # Exporta trazas a Tempo (Grafana Tempo)
-  otlp/tempo:
-    endpoint: "http://localhost:4317"
+  otlphttp/tempo:
+    endpoint: "http://tempo:4318"
     tls:
       insecure: true
 
@@ -29,11 +29,11 @@ service:
     traces:
       receivers: [otlp]
       processors: [batch]
-      exporters: [otlp/tempo]
+      exporters: [otlphttp/tempo, debug]
     metrics:
       receivers: [otlp]
       processors: [batch]
-      exporters: [prometheus]
+      exporters: [prometheus, debug]
     logs:
       receivers: [otlp]
       processors: [batch]
