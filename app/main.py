@@ -1,3 +1,4 @@
+import os
 from fastapi import FastAPI
 from app.routes import client_routes, purchase_routes
 
@@ -11,11 +12,16 @@ from opentelemetry.sdk.metrics.export import PeriodicExportingMetricReader
 from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import OTLPSpanExporter
 from opentelemetry.exporter.otlp.proto.grpc.metric_exporter import OTLPMetricExporter
 from opentelemetry.instrumentation.fastapi import FastAPIInstrumentor
+from opentelemetry.instrumentation.requests import RequestsInstrumentor
+from azure.monitor.opentelemetry import configure_azure_monitor
+
+# --- 🔹 Configurar Azure Monitor
+configure_azure_monitor(connection_string=os.getenv("APPLICATIONINSIGHTS_CONNECTION_STRING"))
 
 # --- 🔹 Configurar el recurso (nombre del servicio)
 resource = Resource.create({"service.name": "apivise"})
 
-# --- 🔹 Configurar exportadores hacia el collector
+# --- 🔹 Configurar exportadores hacia el collector (trazas y métricas)
 otlp_exporter = OTLPSpanExporter(
     endpoint="http://otel-collector:4317",  # nombre del contenedor collector
     insecure=True
@@ -53,8 +59,9 @@ app = FastAPI(
     version="1.0.0"
 )
 
-# --- 🔹 Instrumentar FastAPI para generar trazas automáticamente
+# --- 🔹 Instrumentar FastAPI y peticiones HTTP
 FastAPIInstrumentor.instrument_app(app)
+RequestsInstrumentor().instrument()
 
 # --- 🔹 Incluir rutas
 app.include_router(client_routes.router)
